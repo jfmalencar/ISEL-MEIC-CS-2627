@@ -88,31 +88,31 @@ def executar_exercicio_1():
     print("=" * 60)
 
     # Parâmetros fornecidos
-    p = 997
-    alpha = 814
+    p = 233
+    alpha = 95
 
-    pub_key_Alice = (143, 73)   # Alice (nA, eA)
-    pub_key_Bob = (437, 17)   # Bob (nB, eB)
+    pub_key_Alice = (551, 191)   # Alice (nA, eA)
+    pub_key_Bob = (527, 193)   # Bob (nB, eB)
         
     # Cálculo das chaves privadas RSA de identidade
-    dA = calcula_expoente_privado(pub_key_Alice) # dA = 97
-    dB = calcula_expoente_privado(pub_key_Bob)
+    # dA = calcula_expoente_privado(pub_key_Alice) # dA = 97
+    # dB = calcula_expoente_privado(pub_key_Bob)
     
-    priv_key_Alice = (pub_key_Alice[0], dA)  # (143, 97)
-    priv_key_Bob = (pub_key_Bob[0], dB)  # (437, 233)
+    priv_key_Alice = (551, 95)       # (pub_key_Alice[0], dA)
+    priv_key_Bob = (527, 97)         # (pub_key_Bob[0], dB)
     
     print(f"Chave Privada de Alice IK_pri_A: {priv_key_Alice}")
     print(f"Chave Privada de Bob   IK_pri_B: {priv_key_Bob}\n")
     
     # --- Passo 1: Chave efémera de Alice (xA = 5 para reprodutibilidade) ---
-    x, beta = (64, 915) # chave_DH(p, alpha)
+    x, beta = chave_DH(p, alpha)
     ef_priv_key_Alice = x
     ef_pub_key_Alice = beta
 
     print(f"1. Alice - Chave efemera DH (EK_pub_A, EK_pri_A): ({ef_pub_key_Alice}, {ef_priv_key_Alice})")
     
     # --- Passo 2: Bob envia a Alice (EK_pub_B, sig_IK_B(...)) ---
-    ef_pub_key_Bob = 821
+    ef_pub_key_Bob = 149
 
     # Lista de inteiros: [nA, eA, nB, eB, EK_pub_A, EK_pub_B]
     list_Bob = [pub_key_Alice[0], pub_key_Alice[1], pub_key_Bob[0], pub_key_Bob[1], ef_pub_key_Alice, ef_pub_key_Bob]
@@ -123,6 +123,83 @@ def executar_exercicio_1():
     print(f"   Verificacao da assinatura de Bob por Alice: {validated_Bob}")
     
     # --- Passo 3: Alice envia a Bob sig_IK_A(...) ---
+    if not validated_Bob:
+        print("   Assinatura de Bob invalida. Alice nao envia assinatura.")
+        print("=" * 60)
+        return
+
+    # Lista de inteiros: [eA, EK_pub_B]
+    list_alice = [ef_pub_key_Alice, ef_pub_key_Bob]
+    sig_A = assina_RSA(priv_key_Alice, list_alice)
+    
+    validated_Alice = verifica_RSA(pub_key_Alice, sig_A, list_alice)
+    print(f"3. Alice envia a Bob sig_IK_A: {sig_A}")
+    print(f"   Verificacao da assinatura de Alice por Bob: {validated_Alice}")
+
+    if not validated_Alice:
+        print("   Assinatura de Alice invalida. Alice nao envia assinatura.")
+        print("=" * 60)
+        return
+    
+    # --- Passo 4: Chave secreta partilhada Diffie-Hellman ---
+    K = calcula_chave_partilhada_DH(p, ef_priv_key_Alice, ef_pub_key_Bob)
+    print(f"4. Chave secreta partilhada K = DH(EK_A, EK_B): {K}")
+    print("=" * 60)
+
+# ==============================================================================
+
+def executar_exercicio_2():
+    print("=" * 60)
+    print("RESOLUCAO - EXERCICIO 2")
+    print("=" * 60)
+
+    # Parâmetros fornecidos
+    p = 53
+    alpha = 21
+
+    pub_key_Alice = (247, 77)   # Alice (nA, eA)
+    pub_key_Bob = (119, 23)   # Bob (nB, eB)
+        
+    # Cálculo das chaves privadas RSA de identidade
+    # dA = calcula_expoente_privado(pub_key_Alice) # dA = 97
+    # dB = calcula_expoente_privado(pub_key_Bob)
+    
+    priv_key_Alice = (247, 101)       # (pub_key_Alice[0], dA)
+    priv_key_Bob = (119, 71)         # (pub_key_Bob[0], dB)
+    
+    print(f"Chave Privada de Alice IK_pri_A: {priv_key_Alice}")
+    print(f"Chave Privada de Bob   IK_pri_B: {priv_key_Bob}\n")
+    
+    # --- Passo 1: Chave efémera de Alice (xA = 5 para reprodutibilidade) ---
+    # x, beta = chave_DH(p, alpha)
+    ef_priv_key_Alice = 37
+    ef_pub_key_Alice = pow(alpha, ef_priv_key_Alice, p)
+
+    print(f"1. Alice - Chave efemera DH (EK_pub_A, EK_pri_A): ({ef_pub_key_Alice}, {ef_priv_key_Alice})")
+    
+    # --- Passo 2: Bob envia a Alice (EK_pub_B, sig_IK_B(...)) ---
+    # x, beta = chave_DH(p, alpha)
+    ef_pub_key_Bob = 149
+    ef_priv_key_Bob = pow(alpha, ef_pub_key_Bob, p)
+
+    # Emular comprometimento da chave efémera de Alice
+    compromised_ef_pub_key_Alice = 9
+
+    # Lista de inteiros: [nA, eA, nB, eB, EK_pub_A, EK_pub_B]
+    compromised_list_Bob = [pub_key_Alice[0], pub_key_Alice[1], pub_key_Bob[0], pub_key_Bob[1], compromised_ef_pub_key_Alice, ef_pub_key_Bob]
+    sig_B = assina_RSA(priv_key_Bob, compromised_list_Bob)
+
+    list_Bob = [pub_key_Alice[0], pub_key_Alice[1], pub_key_Bob[0], pub_key_Bob[1], ef_pub_key_Alice, ef_pub_key_Bob]
+    validated_Bob = verifica_RSA(pub_key_Bob, sig_B, list_Bob)
+    print(f"2. Bob envia a Alice (EK_pub_B, sig_IK_B): ({ef_pub_key_Bob}, {sig_B})")
+    print(f"   Verificacao da assinatura de Bob por Alice: {validated_Bob}")
+    
+    # --- Passo 3: Alice envia a Bob sig_IK_A(...) ---
+    if not validated_Bob:
+        print("   Assinatura de Bob invalida. Alice nao envia assinatura.")
+        print("=" * 60)
+        return
+
     # Lista de inteiros: [eA, EK_pub_B]
     list_alice = [ef_pub_key_Alice, ef_pub_key_Bob]
     sig_A = assina_RSA(priv_key_Alice, list_alice)
@@ -140,4 +217,5 @@ def executar_exercicio_1():
 
 if __name__ == "__main__":
     executar_exercicio_1()
+    executar_exercicio_2()
     
