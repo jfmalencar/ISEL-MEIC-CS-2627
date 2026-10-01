@@ -211,25 +211,25 @@ def executar_exercicio_1():
     # Parâmetros fornecidos
     n = 5
     m = 3
-    q = 307
-    beta = 3
+    q = 151
+    beta = 1
 
     # Vetor efemero r: OPCIONAL. Se for None, é gerado aleatoriamente na cifragem.
     # Preencher apenas para reproduzir uma cifra concreta, p.ex. [1, -2, -2, 0, 0].
-    r_fornecido = [1, -2, -2, 0, 0] # None
+    r_fornecido = None # [1, -2, -2, 0, 0] #
 
     print(f"Parametros fornecidos: n = {n}, m = {m}, q = {q}, beta = {beta}")
 
     # Chave publica de Bob (A, b)
     A = np.array([
-        [ 45, 211, 291],
-        [265, 241, 163],
-        [ 16, 245,  31],
-        [278, 257, 238],
-        [ 70, 224, 247],
+        [ 49, 124,  11],
+        [137,  85, 130],
+        [  4,  21,  79],
+        [100, 132,  30],
+        [100,  29, 137],
     ], dtype=object)
 
-    b = np.array([75, 247, 262, 109, 191], dtype=object)
+    b = np.array([85, 77, 96, 62, 67], dtype=object)
     # Em alternativa, se o enunciado fornecer s e e em vez de b:
     # b = calcular_B(A, s_Bob, e_Bob, q)
 
@@ -254,9 +254,9 @@ def executar_exercicio_1():
     # --- Questao 2: Bob decifra o texto cifrado enviado por Ana ---
     print("- Questao 2: Bob decifra o texto cifrado enviado por Ana")
 
-    u_Ana = np.array([109, 145, 244], dtype=object)
-    nu_Ana = 82
-    s_Bob = np.array([1, 0, -2], dtype=object)   # chave privada de Bob
+    u_Ana = np.array([133, 112, 7], dtype=object)
+    nu_Ana = 61
+    s_Bob = np.array([-1, 1, 1], dtype=object)   # chave privada de Bob
 
     print(f"  + Cifra recebida de Ana (u, nu): ({formata_vetor(u_Ana)}, {nu_Ana})")
     print(f"  + Chave privada de Bob s: {formata_vetor(s_Bob)}")
@@ -286,10 +286,10 @@ def executar_exercicio_2():
     imprimir_separador()
 
     # Parametros fornecidos 
-    n = 5
-    m = 3
-    q = 307
-    beta = 3
+    n = 3
+    m = 2
+    q = 23
+    beta = 1
 
     print(f"Parametros fornecidos: n = {n}, m = {m}, q = {q}, beta = {beta}")
     ok = condicao_decifrado_correto(n, beta, q)
@@ -299,21 +299,20 @@ def executar_exercicio_2():
         print("  + PROBLEMA: parametros nao garantem decifrado sempre correto.\n")
 
     A = np.array([
-        [ 45, 211, 291],
-        [265, 241, 163],
-        [ 16, 245,  31],
-        [278, 257, 238],
-        [ 70, 224, 247],
+        [ 10,  4 ],
+        [ 10, 12 ],
+        [  2, 17 ],
     ], dtype=object)
 
-    b = np.array([75, 247, 262, 109, 191], dtype=object)
+    s_Bob = np.array([1, 1], dtype=object)
+    e_Bob = np.array([0, -1, 3], dtype=object)
+    b = calcular_B(A, s_Bob, e_Bob, q)
 
     print("Chave publica de Bob K_pub_B = (A, b):")
     imprimir_matriz("A", A)
     print(f"b = {formata_vetor(b)}\n")
 
     chave_publica_Bob = (A, b)
-    s_Bob = np.array([1, 0, -2], dtype=object)
 
     # --- Cifra de Alice ---
     print("- Alice cifra mu = 1 com a chave publica de Bob")
@@ -333,12 +332,12 @@ def executar_exercicio_2():
     print("- Bob decifra a cifra recebida")
     print(f"  + Chave privada de Bob s: {formata_vetor(s_Bob)}")
 
-    d = valor_decifrado(q, s_Bob, (u_corrompido, nu_Alice))
-    mu_recuperado = decifra_Regev(q, s_Bob, (u_corrompido, nu_Alice))
+    d = valor_decifrado(q, s_Bob, (u_Alice, nu_Alice))
+    mu_recuperado = decifra_Regev(q, s_Bob, (u_Alice, nu_Alice))
 
     print(f"  + (nu - u^T s) mod q = {d}")
     print(f"  + Limiares de decisao: q/4 = {q / 4} e 3q/4 = {3 * q / 4}")
-    print(f"  + Bit decifrado: mu = {mu_recuperado} (enviado: {mu_Alice})")
+    print(f"  + Bit decifrado: mu = {mu_recuperado} (enviado: {mu_Alice}")
 
     if mu_recuperado != mu_Alice:
         print("  + PROBLEMA: o bit decifrado nao coincide com o bit enviado.")
