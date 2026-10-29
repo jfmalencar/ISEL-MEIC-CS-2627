@@ -1,0 +1,17 @@
+diff --git a/src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadBase.java b/src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadBase.java
+index 7ee77d9a..a7f4beed 100644
+--- a/src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadBase.java
++++ b/src/main/java/org/owasp/webgoat/lessons/pathtraversal/ProfileUploadBase.java
+@@ -49,6 +49,12 @@ public class ProfileUploadBase implements AssignmentEndpoint {
+ 
+     try {
+       var uploadedFile = new File(uploadDirectory, fullName);
++      // Verificar caminho canónico
++      if (!uploadedFile
++          .getCanonicalPath()
++          .startsWith(uploadDirectory.getCanonicalPath() + File.separator)) {
++        return failed(this).feedback("path-traversal-rejected").build();
++      }
+       uploadedFile.createNewFile();
+       FileCopyUtils.copy(file.getBytes(), uploadedFile);
+ 
