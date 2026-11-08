@@ -125,6 +125,27 @@ com atraso progressivo e, após várias falhas, um desafio adicional (por exempl
 CAPTCHA) ou bloqueio temporário. O controlo não deve permitir que um atacante
 bloqueie permanentemente a conta de uma vítima através de tentativas falsas.
 
+## D. Broken access control
+
+## 9.
+a imagem "change feedback",
+![](images/09_change_feedback.png),
+ mostra a interceção do pedido para alterarmos o id do user (alteramos para o id 1 que corresponde ao admin) 
+e retiramos o email de quem fez o comentario que aparecia no campo "comment"
+a segunda imagem "adminstration_feedback_proof",
+![](images/09_administration_feeback_proof.png)
+ mostra o painel adminstrativo onde podemos ver o feedback de todos os users e podemos ver o ultimo feedback recebido que esta associado ao userID 1 e que ja vem sem email associado.
+
+ ## 10. Ranking do IDOR/BOLA no OWASP Top 10:2025
+
+Este tipo de vulnerabilidade enquadra-se na categoria A01:2025, Broken Access Control, que ocupa o 1.º lugar do OWASP Top 10:2025. Cobre explicitamente as falhas de autorização BOLA e BFLA, que estão entre os padrões mais explorados em aplicações modernas orientadas a APIs. Em comparação com 2021, surgiram novos métodos de ataque, tornando esta a categoria com o maior número de CWEs mapeados.
+
+
+## 11 CVE-2026-33760
+
+O CVE-2026-33760 é uma vulnerabilidade de IDOR/BOLA no Langflow, uma ferramenta open-source para construir e implementar agentes e workflows com IA, em que o router/api/v1/monitor expõe 7 endpoints que executam operações de leitura, escrita e eliminação sobre recursos pertencentes a utilizadores sem fazer cumprir a verificação de propriedade. Na prática, permite que um utilizador autenticado aceda, modifique ou elimine recursos de outros utilizadores sem autorização.
+
+
 ## E. Cross-site scripting (XSS)
 
 ### 12. XSS refletido

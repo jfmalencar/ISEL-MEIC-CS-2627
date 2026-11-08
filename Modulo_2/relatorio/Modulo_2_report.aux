@@ -1,0 +1,88 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\catcode `"\active 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\babel@aux{portuguese}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Parte 1 --- Shellshock (CVE-2014-6271)}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Preparação do ambiente de simulação}{2}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{a) Confirmação do servidor operacional.}{2}{section*.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Visualização no navegador --- endpoint \texttt  {cgi-bin/getenv.cgi}}}{2}{figure.caption.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Visualização no navegador --- endpoint \texttt  {cgi-bin/vul.cgi}}}{3}{figure.caption.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{b) Análise do conteúdo dos CGI.}{3}{section*.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Linha de comandos --- ficheiro \texttt  {cgi-bin/getenv.cgi}}}{3}{figure.caption.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Linha de comandos --- ficheiro \texttt  {cgi-bin/vul.cgi}}}{3}{figure.caption.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Exploração (Red Team)}{4}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{a) Extração do ficheiro \texttt  {/etc/passwd}.}{4}{section*.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Postman --- extração do conteúdo de \texttt  {/etc/passwd}}}{4}{figure.caption.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{b) Criação de ficheiro de evidência em \texttt  {/tmp}.}{5}{section*.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Postman --- criação do ficheiro de evidência}}{5}{figure.caption.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Postman --- leitura da diretoria \texttt  {/tmp}}}{6}{figure.caption.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{c) Query string como vetor de ataque.}{6}{section*.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Postman --- teste da query string como meio de exploração}}{7}{figure.caption.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Análise de permissões}{8}{subsection.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Postman --- tentativa de extração de \texttt  {/etc/shadow}}}{8}{figure.caption.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{a) Acesso a \texttt  {/etc/shadow}.}{8}{figure.caption.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Parte 2 --- Análise estática com CodeQL (WebGoat / Juice Shop)}{9}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}A.5.b --- Deteção de credenciais embutidas (HardcodedCredentials)}{9}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{i) \texttt  {@precision}.}{9}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ii) Como decide que um campo contém uma password.}{9}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{iii) É análise de fluxo de dados?}{9}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{c) Execução da query.}{9}{section*.21}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Resultados da query \texttt  {HardcodedPasswordField.ql} (2 campos de password detetados)}}{9}{figure.caption.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}A.5.d --- JWT e falso negativo}{10}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{i) Estrutura JWT e operação criptográfica.}{10}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ii) Porque é que a query não o detetou.}{10}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{iii) Classificação.}{10}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}A.5.e --- Impacto do segredo JWT comprometido}{10}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}A.5.f --- Path Traversal (CWE-22)}{10}{subsection.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Resultados do \texttt  {TaintedPath.ql} --- caminho de 4 passos de \texttt  {fullName} até \texttt  {ProfileUploadBase.java:52}}}{12}{figure.caption.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}A.5.g --- Correção e reanálise}{13}{subsection.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Após a correção, os alertas em \texttt  {execute()} desaparecem; permanecem apenas os resultados com \textit  {source} \texttt  {username} em \texttt  {cleanupAndCreateDirectoryForUser()}}}{13}{figure.caption.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}A.5.h --- Classificação OWASP}{13}{subsection.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7}C.1 --- Workflow CodeQL}{14}{subsection.2.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Workflow "CodeQL Scan" configurado com o \textit  {trigger} \texttt  {workflow\_dispatch}}}{14}{figure.caption.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8}C.2 --- Execução manual e inicialização da base de dados}{14}{subsection.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9}C.3 --- SQL Injection (CWE-89) em \texttt  {routes/search.ts}}{15}{subsection.2.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Source e sink.}{15}{section*.29}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Caminho de fluxo de dados do SQL injection --- passos 1 e 2 (\textit  {source})}}{15}{figure.caption.30}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Caminho de fluxo de dados do SQL injection --- passos 3 e 4}}{16}{figure.caption.31}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Caminho de fluxo de dados do SQL injection --- passos 5 e 6 (\textit  {sink})}}{16}{figure.caption.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Justificação.}{16}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Parte 3 --- OWASP Juice Shop com ZAP}{18}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}A. Preparação}{18}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{1. Execução da Juice Shop.}{18}{section*.34}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Acesso à OWASP Juice Shop}}{18}{figure.caption.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{2. Score Board.}{18}{section*.36}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Score Board da Juice Shop}}{18}{figure.caption.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{3. Configuração do ZAP.}{18}{section*.38}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Início do Manual Explore no ZAP}}{19}{figure.caption.39}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Aplicação aberta através do browser do ZAP}}{19}{figure.caption.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}B. Injeção de SQL no login}{19}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5. Ataque de SQL injection.}{19}{section*.41}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Payload de SQL injection no formulário de login}}{20}{figure.caption.42}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Login efetuado como administrador}}{20}{figure.caption.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{6. Pedido HTTP observado no ZAP.}{20}{section*.44}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Pedido HTTP observado no ZAP}}{21}{figure.caption.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}C. Fuzzing da senha do administrador}{21}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{7. Configuração e resultado do fuzzing.}{21}{section*.46}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Pedido configurado no Fuzzer}}{21}{figure.caption.47}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Resultado das tentativas do Fuzzer}}{22}{figure.caption.48}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Tentativa de login com \texttt  {admin123}}}{22}{figure.caption.49}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Login bem-sucedido após o fuzzing}}{23}{figure.caption.50}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{8. Requisito ASVS violado.}{23}{section*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}D. Broken Access Control}{23}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{9. Alteração de feedback (IDOR).}{23}{section*.52}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Interceção e alteração do pedido de feedback}}{23}{figure.caption.53}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Painel administrativo com o feedback alterado (sem email, userID 1)}}{24}{figure.caption.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{10. Ranking do IDOR/BOLA no OWASP Top 10:2025.}{24}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{11. CVE-2026-33760.}{24}{section*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}E. Cross-Site Scripting (XSS)}{24}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{12. XSS refletido.}{24}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{13. XSS armazenado versus XSS refletido.}{25}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{14. Cookie \texttt  {token} e payload JWT.}{25}{section*.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{15.a. Obtenção do cookie através de engenharia social.}{25}{section*.60}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{15.b. Avaliação do risco.}{26}{section*.61}\protected@file@percent }
+\gdef \@abspage@last{27}
