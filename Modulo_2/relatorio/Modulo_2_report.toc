@@ -1,0 +1,51 @@
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Parte 1 --- Shellshock (CVE-2014-6271)}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Preparação do ambiente de simulação}{2}{subsection.1.1}%
+\contentsline {paragraph}{a) Confirmação do servidor operacional.}{2}{section*.3}%
+\contentsline {paragraph}{b) Análise do conteúdo dos CGI.}{3}{section*.6}%
+\contentsline {subsection}{\numberline {1.2}Exploração (Red Team)}{4}{subsection.1.2}%
+\contentsline {paragraph}{a) Extração do ficheiro \texttt {/etc/passwd}.}{4}{section*.9}%
+\contentsline {paragraph}{b) Criação de ficheiro de evidência em \texttt {/tmp}.}{5}{section*.11}%
+\contentsline {paragraph}{c) Query string como vetor de ataque.}{6}{section*.14}%
+\contentsline {subsection}{\numberline {1.3}Análise de permissões}{8}{subsection.1.3}%
+\contentsline {paragraph}{a) Acesso a \texttt {/etc/shadow}.}{8}{figure.caption.17}%
+\contentsline {section}{\numberline {2}Parte 2 --- Análise estática com CodeQL (WebGoat / Juice Shop)}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}A.5.b --- Deteção de credenciais embutidas (HardcodedCredentials)}{9}{subsection.2.1}%
+\contentsline {paragraph}{i) \texttt {@precision}.}{9}{section*.18}%
+\contentsline {paragraph}{ii) Como decide que um campo contém uma password.}{9}{section*.19}%
+\contentsline {paragraph}{iii) É análise de fluxo de dados?}{9}{section*.20}%
+\contentsline {paragraph}{c) Execução da query.}{9}{section*.21}%
+\contentsline {subsection}{\numberline {2.2}A.5.d --- JWT e falso negativo}{10}{subsection.2.2}%
+\contentsline {paragraph}{i) Estrutura JWT e operação criptográfica.}{10}{section*.23}%
+\contentsline {paragraph}{ii) Porque é que a query não o detetou.}{10}{section*.24}%
+\contentsline {paragraph}{iii) Classificação.}{10}{section*.25}%
+\contentsline {subsection}{\numberline {2.3}A.5.e --- Impacto do segredo JWT comprometido}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}A.5.f --- Path Traversal (CWE-22)}{10}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}A.5.g --- Correção e reanálise}{13}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}A.5.h --- Classificação OWASP}{13}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}C.1 --- Workflow CodeQL}{14}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}C.2 --- Execução manual e inicialização da base de dados}{14}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}C.3 --- SQL Injection (CWE-89) em \texttt {routes/search.ts}}{15}{subsection.2.9}%
+\contentsline {paragraph}{Source e sink.}{15}{section*.29}%
+\contentsline {paragraph}{Justificação.}{16}{section*.33}%
+\contentsline {section}{\numberline {3}Parte 3 --- OWASP Juice Shop com ZAP}{18}{section.3}%
+\contentsline {subsection}{\numberline {3.1}A. Preparação}{18}{subsection.3.1}%
+\contentsline {paragraph}{1. Execução da Juice Shop.}{18}{section*.34}%
+\contentsline {paragraph}{2. Score Board.}{18}{section*.36}%
+\contentsline {paragraph}{3. Configuração do ZAP.}{18}{section*.38}%
+\contentsline {subsection}{\numberline {3.2}B. Injeção de SQL no login}{19}{subsection.3.2}%
+\contentsline {paragraph}{5. Ataque de SQL injection.}{19}{section*.41}%
+\contentsline {paragraph}{6. Pedido HTTP observado no ZAP.}{20}{section*.44}%
+\contentsline {subsection}{\numberline {3.3}C. Fuzzing da senha do administrador}{21}{subsection.3.3}%
+\contentsline {paragraph}{7. Configuração e resultado do fuzzing.}{21}{section*.46}%
+\contentsline {paragraph}{8. Requisito ASVS violado.}{23}{section*.51}%
+\contentsline {subsection}{\numberline {3.4}D. Broken Access Control}{23}{subsection.3.4}%
+\contentsline {paragraph}{9. Alteração de feedback (IDOR).}{23}{section*.52}%
+\contentsline {paragraph}{10. Ranking do IDOR/BOLA no OWASP Top 10:2025.}{24}{section*.55}%
+\contentsline {paragraph}{11. CVE-2026-33760.}{24}{section*.56}%
+\contentsline {subsection}{\numberline {3.5}E. Cross-Site Scripting (XSS)}{24}{subsection.3.5}%
+\contentsline {paragraph}{12. XSS refletido.}{24}{section*.57}%
+\contentsline {paragraph}{13. XSS armazenado versus XSS refletido.}{25}{section*.58}%
+\contentsline {paragraph}{14. Cookie \texttt {token} e payload JWT.}{25}{section*.59}%
+\contentsline {paragraph}{15.a. Obtenção do cookie através de engenharia social.}{25}{section*.60}%
+\contentsline {paragraph}{15.b. Avaliação do risco.}{26}{section*.61}%
