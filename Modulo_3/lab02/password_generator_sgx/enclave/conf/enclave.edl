@@ -12,7 +12,9 @@ enclave {
 
     /* ECALLs: operations requested by the untrusted application. */
     trusted {
-        public int ecall_generate_password(size_t len, [out, buff_size] char * buff, size_t buff_size);
+        public int ecall_generate_password( size_t len,
+                                            [out, size=buff_size] char *buff,
+                                            size_t buff_size );
     };
 
     /* OCALLs: untrusted services requested by code executing in the enclave. */

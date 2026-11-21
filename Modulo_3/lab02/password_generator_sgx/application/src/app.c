@@ -14,10 +14,13 @@
 #include <string.h>
 #include <time.h>
 
+#include <sgx_urts.h>
+#include "sgx_utils.h"
+#include "enclave_u.h"
+
+
 #include "app.h"
 
-/* Characters that may appear in a generated password. */
-static const char password_characters[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*(){}[]:<>?,./";
 
 /* Internal function declarations. */
 static void show_help( const char *program_name );
@@ -36,6 +39,12 @@ int main( int argc, char *argv[] )
     long password_length = PASSWORD_DEFAULT_LENGTH;
     int option;
     int generate_requested = 0;
+
+    sgx_enclave_id_t enclave_id = 0;
+    sgx_status_t sgx_status;
+    int ecall_return = EXIT_FAILURE;
+    int exit_status = EXIT_FAILURE;
+
 
     /* Read the command-line options. */
     opterr = 0;
@@ -75,13 +84,43 @@ int main( int argc, char *argv[] )
         return EXIT_FAILURE;
     }
 
-    /* Initialize the pseudorandom generator using the current time. */
-    srand( (unsigned int)time( NULL ) );
+    sgx_status = sgx_create_enclave( ENCLAVE_FILENAME, SGX_DEBUG_FLAG, NULL, NULL, &enclave_id, NULL );
+    if ( sgx_status != SGX_SUCCESS ) {
+        fprintf( stderr, "Enclave creation failed.\n" );
+        print_sgx_error( sgx_status );
+        return EXIT_FAILURE;
+    }
 
-    generate_password( password, (size_t)password_length );
-    printf( "Generated password: %s\n", password );
+    /*
+     * ECALL results are separate:
+     *   sgx_status   - whether the SDK could invoke the enclave function;
+     *   ecall_return - the int returned by the function inside the enclave.
+     */
+    sgx_status = ecall_generate_password( enclave_id, &ecall_return,
+                                          (size_t)password_length,
+                                          password, sizeof(password) );
+    if ( sgx_status != SGX_SUCCESS ) {
+        fprintf( stderr, "Enclave call failed.\n" );
+        print_sgx_error( sgx_status );
+    } else if ( ecall_return != EXIT_SUCCESS ) {
+        fprintf( stderr, "The enclave could not generate the password.\n" );
+    } else {
+        printf( "Generated password: %s\n", password );
+        exit_status = EXIT_SUCCESS;
+    }
 
-    return EXIT_SUCCESS;
+    /* Remove the password from untrusted memory once it is no longer needed. */
+    explicit_bzero( password, sizeof(password) );
+
+    /* Release enclave resources even when the ECALL failed. */
+    sgx_status = sgx_destroy_enclave( enclave_id );
+    if ( sgx_status != SGX_SUCCESS ) {
+        fprintf( stderr, "Enclave destruction failed.\n" );
+        print_sgx_error( sgx_status );
+        exit_status = EXIT_FAILURE;
+    }
+
+    return exit_status;
 }
 
 /*
@@ -117,24 +156,5 @@ static int parse_password_length( const char *text, long *length )
     }
 
     return 0;
-}
-
-/*
- * Function   : generate_password
- * Description: Build a password by selecting characters at random.
- * Inputs     : password_length - requested number of characters.
- * Outputs    : password - NUL-terminated string in the caller's buffer.
- *              The caller must provide password_length + 1 bytes.
- */
-void generate_password( char *password, size_t password_length )
-{
-    size_t index;
-    const size_t character_count = strlen( password_characters );
-
-    for ( index = 0; index < password_length; ++index ) {
-        password[index] = password_characters[(size_t)rand() % character_count];
-    }
-
-    password[password_length] = '\0';
 }
 

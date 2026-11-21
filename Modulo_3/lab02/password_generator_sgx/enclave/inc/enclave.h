@@ -11,11 +11,18 @@
 #ifndef ENCLAVE_H
 #define ENCLAVE_H
 
+#include <stddef.h>   
+#include <stdlib.h>
+
+#define PASSWORD_MIN_LENGTH      8
+#define PASSWORD_MAX_LENGTH    100
+
 /*
- * printf-like helper for use inside an enclave.
- * The formatted text is sent to an untrusted output service via an OCALL.
- * Returns the number of characters written, or -1 on error/truncation.
+ * Build a password using the SGX trusted random number generator.
+ * The caller must provide password_length + 1 bytes.
+ * Returns 0 on success or -1 if random generation fails.
  */
-int enclave_printf( const char *format, ... );
+int generate_password( char *password, size_t password_length );
+
 
 #endif /* ENCLAVE_H */

@@ -14,4 +14,8 @@
 /* Signed enclave image, located alongside the application executable. */
 #define ENCLAVE_FILENAME "enclave.signed.so"
 
+#define PASSWORD_MIN_LENGTH      8
+#define PASSWORD_MAX_LENGTH    100
+#define PASSWORD_DEFAULT_LENGTH 16
+
 #endif /* APP_H */
