@@ -1,0 +1,25 @@
+/*
+ * Institution  : Instituto Superior de Engenharia de Lisboa (ISEL)
+ * Project      : Cybersecurity (Module 3 - Hardware Security)
+ * Author       : Tiago M. Dias (tiago.dias@isel.pt)
+ * File         : enclave.edl
+ * Created      : 2026-11-09
+ * Last modified: 2026-11-09
+ * Description  : Interface definitions for calls crossing the enclave boundary.
+ */
+
+enclave {
+
+    /* ECALLs: operations requested by the untrusted application. */
+    trusted {
+        public int ecall_generate_password( size_t len,
+                                            [out, size=buff_size] char *buff,
+                                            size_t buff_size );
+    };
+
+    /* OCALLs: untrusted services requested by code executing in the enclave. */
+    untrusted {
+        
+    };
+
+};
