@@ -1,11 +1,12 @@
 /*
  * Institution  : Instituto Superior de Engenharia de Lisboa (ISEL)
- * Project      : Cybersecurity (Module 3 - Hardware Security): Lab 2
- * Author       : Tiago M. Dias (tiago.dias@isel.pt)
+ * Project      : Cybersecurity (Module 3 - Hardware Security): Lab 3
+ * Authors      : Jessé Ferreira de Moura Alencar (A51745)
+ *                Rodrigo Dos Ramos Pais Henriques Vitorino (A49448)
  * File         : enclave.h
  * Created      : 2026-11-09
- * Last modified: 2026-11-09
- * Description  : Declarations of utility functions available inside the enclave.
+ * Last modified: 2026-11-27
+ * Description  : Password length limits and functions available inside the enclave.
  */
 
 #ifndef ENCLAVE_H
@@ -13,6 +14,7 @@
 
 #include <stddef.h>   
 #include <stdlib.h>
+#include <stdint.h>
 
 #define PASSWORD_MIN_LENGTH      8
 #define PASSWORD_MAX_LENGTH    100

@@ -1,11 +1,12 @@
 /*
  * Institution  : Instituto Superior de Engenharia de Lisboa (ISEL)
  * Project      : Cybersecurity (Module 3 - Hardware Security): Lab 2
- * Author       : Tiago M. Dias (tiago.dias@isel.pt)
+ * Authors      : Jessé Ferreira de Moura Alencar (A51745)
+ *                Rodrigo Dos Ramos Pais Henriques Vitorino (A49448)
  * File         : enclave.c
  * Created      : 2026-11-09
- * Last modified: 2026-11-09
- * Description  : Trusted enclave code and reusable formatted output helper.
+ * Last modified: 2026-11-21
+ * Description  : Trusted enclave code: password generation with sgx_read_rand().
  */
 
 #include <string.h>     /* strlen(), memset() */

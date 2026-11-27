@@ -1,10 +1,11 @@
 /*
  * Institution  : Instituto Superior de Engenharia de Lisboa (ISEL)
  * Project      : Cybersecurity (Module 3 - Hardware Security)
- * Author       : Tiago M. Dias (tiago.dias@isel.pt)
+ * Authors      : Jessé Ferreira de Moura Alencar (A51745)
+ *                Rodrigo Dos Ramos Pais Henriques Vitorino (A49448)
  * File         : enclave.edl
  * Created      : 2026-11-09
- * Last modified: 2026-11-09
+ * Last modified: 2026-11-21
  * Description  : Interface definitions for calls crossing the enclave boundary.
  */
 
